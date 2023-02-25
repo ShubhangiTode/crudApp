@@ -3,19 +3,20 @@ import { Table, Button } from "react-bootstrap";
 import ProductFormModal from "./ProductFormModal";
 import ProdctTableRows from "./ProductTableRow";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts } from "../../Redux/User/actions";
-
-
+import { Product } from "types/Product";
+import { RootState } from "Redux/store";
+import { getProducts } from "Redux/Product/actions";
 
 function ProductTable() {
   const [open, setOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const products = useSelector((state) => state.user.data);
-  let dispatch = useDispatch();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const products = useSelector((state: RootState) => state.product.products);
 
-  const handleOpen = useCallback((data) => {
+  const dispatch = useDispatch();
+
+  const handleOpen = useCallback((products?: Product) => {
     setOpen(true);
-    if (data) setSelectedProduct(data);
+    if (products) setSelectedProduct(products);
     else setSelectedProduct(null);
   }, []);
 
@@ -30,13 +31,13 @@ function ProductTable() {
 
   useEffect(() => {
     fetchdata();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteusr = async (id) => {
+  const deleteusr = async (id: number) => {
     try {
-      dispatch(deleteProduct(id));
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   };
 
@@ -51,8 +52,7 @@ function ProductTable() {
             <th>No</th>
             <th>name</th>
             <th>Brand </th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>options</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@ function ProductTable() {
       </Table>
       <ProductFormModal
         open={open}
-        products={selectedProduct}
+        product={selectedProduct}
         handleClose={handleClose}
       />
     </div>

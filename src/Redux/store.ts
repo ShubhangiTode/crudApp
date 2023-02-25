@@ -3,14 +3,17 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import rootReducer from "./rootReducer";
 
+
 const initialState = {};
 const middleware = [thunk];
 
-const store = createStore(
+let store = createStore(
   rootReducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
-console.log(store.getState());
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch

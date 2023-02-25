@@ -1,3 +1,4 @@
+import React from "react";
 import { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
@@ -5,9 +6,9 @@ import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 export const ProdctTableRow = ({ prod, handleOpen, deleteusr }) => {
   return (
     <tr>
-      <td> {prod.id} </td>
-      <td> {prod.title} </td>
-      <td> {prod.brand} </td>
+      <td>{prod.id}</td>
+      <td>{prod.title}</td>
+      <td>{prod.brand}</td>
       <td>
         <Button variant="primary" onClick={() => handleOpen(prod)}>
           <FaRegEdit />

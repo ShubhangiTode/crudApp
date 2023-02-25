@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductApiServices from "../../Services/ProductApiServices";
+import ProductApiServices from "services/ProductApiServices";
 import { Form, Button, Modal } from "react-bootstrap";
 // import axios from "axios";
 
@@ -9,7 +9,7 @@ function ProductRow_old(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const addata = async (e) => {
+  const addata = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     const product = { ...props.product, title, brand };
@@ -17,7 +17,7 @@ function ProductRow_old(props) {
     const response = await ProductApiServices.add(product);
 
     if (response.status === 200) {
-    
+
       alert("Data Is Added Success");
       props.handleClose();
       props.editProduct(response.data);
@@ -63,7 +63,7 @@ function ProductRow_old(props) {
                 Close
               </Button>
               <Button variant="primary" type="submit" >
-                Save 
+                Save
               </Button>
             </Modal.Footer>
           </Modal>
