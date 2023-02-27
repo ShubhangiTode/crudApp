@@ -5,7 +5,7 @@ import ProdctTableRows from "./ProductTableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "types/Product";
 import { RootState } from "Redux/store";
-import { getProducts } from "Redux/Product/actions";
+import { getProducts, deleteProduct } from "Redux/Product/actions";
 
 function ProductTable() {
   const [open, setOpen] = useState(false);
@@ -36,6 +36,7 @@ function ProductTable() {
 
   const deleteusr = async (id: number) => {
     try {
+      dispatch(deleteProduct(id));
     } catch (err) {
       console.log(err);
     }
